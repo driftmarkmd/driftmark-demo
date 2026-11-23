@@ -8,71 +8,90 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* VOICE: a confident local shop sign — plain-spoken, trustworthy, phone-first.
-   IDEA: the shop's own storefront: a full-bleed sign band, a car in the bay, a clear way to call.
-   PICTURE: one large side-view car — up on a lift for repair, glossed with shine for detailing.
-   COLOUR and TYPE: repair = graphite + signal red; detailing = deep teal + coral; Archivo signage over Inter.
-   LAYOUT: demo switch bar, sign band with car, services, quote form, hours and area, sticky call bar on phones. */
-:root{color-scheme:light dark;--bg:light-dark(#ffffff,#121417);--ink:light-dark(#15171a,#eef0f2);--soft:light-dark(#5b626b,#a9b0b8);--line:light-dark(#dfe3e8,#2a2f35);--card:light-dark(#ffffff,#181b1f)}
+/* VOICE: a confident local shop — plain-spoken, trustworthy, phone-first.
+   IDEA: real photography carries the page; type and one brand colour do the rest.
+   COLOUR and TYPE: repair = graphite + signal red; detailing = near-black teal + warm coral; Archivo over Inter.
+   LAYOUT: demo switch bar, photo hero, proof strip, services, work gallery, why + photo, quote form, hours, sticky call bar on phones. */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f1113);--ink:light-dark(#121417,#eef0f2);--soft:light-dark(#59616b,#a3abb4);--line:light-dark(#e3e6ea,#272c32);--card:light-dark(#ffffff,#171a1e)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip;padding-bottom:76px}
-body[data-site=repair]{--deep:#1d2025;--brand:#d0281f;--brand-ink:#fff;--wash:light-dark(#f0f2f5,#1a1d21);--car:#c9ced5;--car2:#9aa1aa}
-body[data-site=detail]{--deep:#0c4f5c;--brand:#ff6b4f;--brand-ink:#1b0d08;--wash:light-dark(#e6f3f5,#10252a);--car:#1b2b30;--car2:#0b1518}
-h1,h2,h3{font-family:Archivo,Inter,sans-serif;line-height:1.05;margin:0;text-wrap:balance}
-h1{font-size:clamp(32px,6vw,52px);font-weight:800}
-h2{font-size:clamp(26px,4vw,36px);font-weight:800;margin-bottom:8px}
-h3{font-size:19px;font-weight:700}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:clip;padding-bottom:76px;-webkit-font-smoothing:antialiased}
+body[data-site=repair]{--deep:#14171b;--deep-rgb:20,23,27;--brand:#d92b21;--brand-ink:#fff;--accent:light-dark(#c2241b,#ff6a5f);--wash:light-dark(#f4f5f7,#15181c)}
+body[data-site=detail]{--deep:#08191d;--deep-rgb:8,25,29;--brand:#ff7a59;--brand-ink:#1b0d08;--accent:light-dark(#c2492c,#ff8f73);--wash:light-dark(#f2f6f6,#0f1c1f)}
+h1,h2,h3{font-family:Archivo,Inter,sans-serif;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.02em}
+h1{font-size:clamp(36px,6.4vw,64px);font-weight:800}
+h2{font-size:clamp(28px,4vw,40px);font-weight:800}
+h3{font-size:18px;font-weight:700;letter-spacing:-.01em}
 a{color:inherit}
-.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
-.wrap{max-width:1240px;margin:0 auto}
-.demo{background:light-dark(#fffbe6,#2a2610);border-bottom:1px solid light-dark(#efe2a6,#4a4320);padding:8px max(5vw,16px);font-size:14px}
+img{display:block;max-width:100%}
+.band{padding:clamp(44px,6vw,88px) max(5vw,20px)}
+.wrap{max-width:1180px;margin:0 auto}
+.eyebrow{font:700 12px/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.sub{margin:10px 0 0;color:var(--soft);max-width:58ch}
+.demo{background:light-dark(#fffbe6,#2a2610);border-bottom:1px solid light-dark(#efe2a6,#4a4320);padding:8px max(5vw,16px);font-size:13px}
 .demo .wrap{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
 .switch{display:flex;background:light-dark(#fff,#1b1b14);border:1px solid light-dark(#e3d79e,#4a4320);border-radius:999px;padding:3px}
 .switch button{font:600 14px Inter,sans-serif;border:0;background:none;color:var(--ink);padding:0 16px;min-height:40px;border-radius:999px;cursor:pointer}
 .switch button[aria-pressed=true]{background:#15171a;color:#fff}
 :root[data-theme=dark] .switch button[aria-pressed=true]{background:#eef0f2;color:#15171a}
-header{background:var(--deep);color:#fff;padding:14px max(5vw,16px);position:sticky;top:0;z-index:5}
-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.logo{font:800 20px Archivo,sans-serif;display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo svg{width:30px;height:30px}
-nav{display:flex;gap:18px;flex-wrap:wrap;font-size:15px}
-nav a{text-decoration:none;opacity:.85}nav a:hover{opacity:1;text-decoration:underline}
-.hero{background:var(--deep);color:#fff;padding-bottom:0}
-.hero .kicker{font-weight:600;color:light-dark(#ffd6cf,#ffd6cf);opacity:.9;margin-bottom:12px}
-body[data-site=detail] .hero .kicker{color:#bdeaf0}
-.hero p.lead{font-size:17px;max-width:62ch;opacity:.9;margin:16px 0 22px}
+header{background:rgba(var(--deep-rgb),.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;padding:12px max(5vw,20px);position:sticky;top:0;z-index:5;border-bottom:1px solid rgba(255,255,255,.08)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font:800 18px Archivo,sans-serif;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo svg{width:30px;height:30px;flex:none}
+nav{display:flex;gap:22px;font-size:15px;align-items:center}
+nav a{text-decoration:none;opacity:.8}nav a:hover{opacity:1}
+nav a.navcall{opacity:1;font-weight:700;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:8px 16px}
+.hero{position:relative;color:#fff;background:var(--deep);display:flex;align-items:flex-end;min-height:min(84svh,720px);padding:0 max(5vw,20px);isolation:isolate;overflow:hidden}
+.hero picture{position:absolute;inset:0;z-index:-2}
+.hero picture img{width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(var(--deep-rgb),.45) 0%,rgba(var(--deep-rgb),.1) 28%,rgba(var(--deep-rgb),.82) 62%,rgba(var(--deep-rgb),.98) 100%)}
+.hero .wrap{width:100%;padding:clamp(120px,22vh,220px) 0 clamp(28px,5vw,64px)}
+.hero .kicker{font:700 12px/1.3 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hero .kicker::before{content:"";width:28px;height:2px;background:var(--brand);flex:none}
+.hero h1{max-width:13ch;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.hero p.lead{font-size:17px;max-width:46ch;color:rgba(255,255,255,.86);margin:16px 0 24px}
 .btns{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:10px;font:700 16px Archivo,sans-serif;text-decoration:none;border:2px solid transparent;cursor:pointer}
-.btn.primary{background:var(--brand);color:var(--brand-ink)}
-.btn.ghost{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:12px;font:700 16px Archivo,sans-serif;text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:transform .15s,filter .15s}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:var(--brand);color:var(--brand-ink);box-shadow:0 8px 24px -8px var(--brand)}
+.btn.primary:hover{filter:brightness(1.07)}
+.btn.ghost{border-color:rgba(255,255,255,.45);color:#fff;background:rgba(255,255,255,.08);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.btn svg{width:18px;height:18px;flex:none}
 .btn:focus-visible,.switch button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,nav a:focus-visible{outline:3px solid #ffbf3c;outline-offset:2px}
-.open{display:inline-flex;align-items:center;gap:8px;font-size:14px;opacity:.9}
-.dot{width:9px;height:9px;border-radius:50%;background:#3fd17a}
-.dot.closed{background:#ff6b6b}
-.fig{position:relative;margin-top:28px;aspect-ratio:8/3;max-height:420px;width:100%}
-.fig svg{position:absolute;inset:0;width:100%;height:100%}
-.lift,.shine{display:none}
-body[data-site=repair] .lift{display:inline}
-body[data-site=detail] .shine{display:inline}
-.spark{animation:tw 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
-.spark:nth-child(2){animation-delay:.6s}.spark:nth-child(3){animation-delay:1.2s}.spark:nth-child(4){animation-delay:1.8s}
-@keyframes tw{0%,100%{opacity:.25;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}
-@media(prefers-reduced-motion:reduce){.spark{animation:none}}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px;margin-top:24px}
-.svc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px}
-.svc p{margin:0;color:var(--soft);font-size:15px}
-.svc .from{margin-top:auto;font-weight:600;white-space:nowrap}
-.note{font-size:13px;color:var(--soft);margin-top:12px}
-.why{background:var(--wash)}
-.why ul{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px}
-.why li{border-top:3px solid var(--brand);padding-top:12px}
-.why li b{display:block;font-family:Archivo,sans-serif;font-size:18px;margin-bottom:4px}
-.why li span{color:var(--soft)}
-.quote{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(20px,4vw,56px);align-items:start}
-form{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(18px,3vw,28px);display:grid;gap:14px}
+.open{display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,.85);margin-top:18px}
+.dot{width:9px;height:9px;border-radius:50%;background:#3fd17a;box-shadow:0 0 0 4px rgba(63,209,122,.2)}
+.dot.closed{background:#ff6b6b;box-shadow:0 0 0 4px rgba(255,107,107,.2)}
+.facts{background:var(--deep);color:#fff;padding:0 max(5vw,20px)}
+.facts .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid rgba(255,255,255,.12)}
+.facts div{padding:18px 12px 22px 0}
+.facts div+div{padding-left:14px;border-left:1px solid rgba(255,255,255,.12)}
+.facts b{display:block;font:800 clamp(16px,2.4vw,22px)/1.15 Archivo,sans-serif;letter-spacing:-.01em}
+.facts span{font-size:13px;color:rgba(255,255,255,.7);line-height:1.35;display:block;margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:28px}
+.svc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px 18px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;align-items:baseline;transition:border-color .2s,transform .2s}
+.svc:hover{border-color:var(--accent);transform:translateY(-2px)}
+.svc p{margin:0;color:var(--soft);font-size:15px;grid-column:1/-1}
+.svc .from{font:700 14px Inter,sans-serif;color:var(--accent);white-space:nowrap}
+.note{font-size:13px;color:var(--soft);margin-top:14px}
+.work{background:var(--wash)}
+.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
+.shot{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/5;background:var(--deep);margin:0}
+.shot img{width:100%;height:100%;object-fit:cover}
+.shot figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 16px 14px;color:#fff;font:700 16px Archivo,sans-serif;background:linear-gradient(transparent,rgba(0,0,0,.78))}
+.why .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:center}
+.why .pic{border-radius:20px;overflow:hidden;aspect-ratio:5/4;background:var(--deep)}
+.why .pic img{width:100%;height:100%;object-fit:cover;object-position:var(--wpos,50% 50%)}
+.why ul{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:18px}
+.why li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px}
+.why li::before{content:"";grid-row:span 2;width:28px;height:28px;border-radius:50%;margin-top:2px;background:var(--brand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/16px no-repeat}
+.why li b{font:700 18px Archivo,sans-serif;letter-spacing:-.01em}
+.why li span{color:var(--soft);grid-column:2}
+.qband{background:var(--wash)}
+.quote{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(24px,4vw,56px);align-items:start}
+form{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(20px,3vw,30px);display:grid;gap:14px;box-shadow:0 24px 48px -32px rgba(0,0,0,.35)}
 label{font-weight:600;font-size:14px;display:grid;gap:6px}
-input,select,textarea{font:16px Inter,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;min-height:48px;width:100%}
+input,select,textarea{font:16px Inter,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-height:50px;width:100%}
 textarea{min-height:96px;resize:vertical}
 .row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
 .err{color:#c0281f;font-size:14px;min-height:1em;margin:0}
@@ -80,29 +99,57 @@ textarea{min-height:96px;resize:vertical}
 .done{display:none;text-align:center;padding:28px 8px}
 .done h3{margin-bottom:8px}
 .done p{color:var(--soft);margin:0 0 16px}
-.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:24px}
-table{width:100%;border-collapse:collapse}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:32px}
+.info h3{margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:15px}
 td{padding:10px 0;border-bottom:1px solid var(--line)}
-td:last-child{text-align:right;white-space:nowrap}
-tr.today td{font-weight:700}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.chips span{background:var(--wash);border-radius:999px;padding:6px 14px;font-size:15px}
-.reviews{border:2px dashed var(--line);border-radius:14px;padding:20px;color:var(--soft)}
+td:last-child{text-align:right;white-space:nowrap;color:var(--soft)}
+tr.today td{font-weight:700;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px}
+.reviews{border:1.5px dashed var(--line);border-radius:16px;padding:20px;color:var(--soft);font-size:15px}
 .reviews b{color:var(--ink)}
+.stars{color:#f5b301;letter-spacing:3px;font-size:18px;display:block;margin-bottom:6px;opacity:.45}
 footer{background:var(--deep);color:#fff;font-size:14px}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;opacity:.85}
-.callbar{position:fixed;left:0;right:0;bottom:0;display:none;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line);z-index:6}
-.callbar .btn{flex:1;white-space:nowrap;padding-left:10px;padding-right:10px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;color:rgba(255,255,255,.7)}
+.callbar{position:fixed;left:0;right:0;bottom:0;display:none;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);z-index:6}
+.callbar .btn{flex:1;white-space:nowrap;padding-left:10px;padding-right:10px;min-height:50px}
 .callbar .btn:first-child{flex:1.4}
-.callbar .btn.ghost{border-color:var(--line);color:var(--ink)}
-@media(max-width:700px){nav{display:none}.callbar{display:flex}.quote{grid-template-columns:minmax(0,1fr)}.row2{grid-template-columns:minmax(0,1fr)}.fig{aspect-ratio:8/3.4}}
-@media(min-width:701px){body{padding-bottom:0}}
+.callbar .btn.ghost{border-color:var(--line);color:var(--ink);background:transparent}
+@media(max-width:700px){
+  nav{display:none}.callbar{display:flex}
+  .quote,.why .wrap{grid-template-columns:minmax(0,1fr)}
+  .row2{grid-template-columns:minmax(0,1fr)}
+  .dlong{display:none}
+  .demo .wrap{flex-wrap:nowrap}
+  .switch button{min-height:36px;padding:0 14px}
+  .hero{min-height:0;display:block}
+  .hero picture,.hero::after{inset:0 0 auto 0;height:min(60svh,470px)}
+  .hero::after{background:linear-gradient(180deg,rgba(var(--deep-rgb),.3) 0%,rgba(var(--deep-rgb),0) 22%,rgba(var(--deep-rgb),.55) 62%,var(--deep) 100%)}
+  .hero .wrap{padding:min(36svh,290px) 0 26px}
+  .hero .kicker{font-size:11px;letter-spacing:.1em}
+  .hero .kicker::before{width:20px}
+  .hero p.lead{font-size:16px;margin:12px 0 20px}
+  .hero .btns .btn{flex:1 1 100%}
+  .shots{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:72%;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(-1*max(5vw,20px));padding-inline:max(5vw,20px);scrollbar-width:none}
+  .shots::-webkit-scrollbar{display:none}
+  .shot{scroll-snap-align:center}
+  .why .pic{aspect-ratio:16/11}
+}
+@media(min-width:701px){
+  body{padding-bottom:0}
+  .hero{align-items:center;min-height:min(78svh,680px)}
+  .hero::after{background:linear-gradient(90deg,rgba(var(--deep-rgb),.96) 0%,rgba(var(--deep-rgb),.8) 38%,rgba(var(--deep-rgb),.15) 75%)}
+  .hero .wrap{padding:72px 0}
+  .open{margin-top:22px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.svc{transition:none}}
 </style>
 </head>
 <body data-site="repair">
 
 <div class="demo"><div class="wrap">
-  <span><b>Demo site by Driftmark.</b> Your shop's name, photos and details go here.</span>
+  <span><b>Driftmark demo.</b> <span class="dlong">Your shop's name, photos and details go here.</span></span>
   <div class="switch" role="group" aria-label="Demo version">
     <button type="button" id="b-repair" aria-pressed="true">Auto repair</button>
     <button type="button" id="b-detail" aria-pressed="false">Detailing</button>
@@ -111,74 +158,54 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 
 <header><div class="wrap">
   <a class="logo" href="#top" id="logo"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--brand)"/><path id="logoMark" d="M9 21l7-11 7 11z" fill="#fff"/></svg><span id="shopName"></span></a>
-  <nav aria-label="Sections"><a href="#services">Services</a><a href="#quote">Get a quote</a><a href="#visit">Hours &amp; area</a></nav>
+  <nav aria-label="Sections"><a href="#services">Services</a><a href="#quote">Get a quote</a><a href="#work">Our work</a><a href="#visit">Hours &amp; area</a><a class="navcall" id="navCall" href="#"></a></nav>
 </div></header>
 
-<section class="band hero" id="top"><div class="wrap">
-  <div class="kicker" id="kicker"></div>
-  <h1 id="title"></h1>
-  <p class="lead" id="lead"></p>
-  <div class="btns">
-    <a class="btn primary" id="callBtn" href="#">Call <span class="ph"></span></a>
-    <a class="btn ghost" href="#quote" id="quoteBtn"></a>
-    <span class="open"><span class="dot" id="dot"></span><span id="openText"></span></span>
+<section class="hero" id="top">
+  <picture><source id="heroD" media="(min-width:701px)" srcset=""><img id="heroM" src="" alt="" fetchpriority="high"></picture>
+  <div class="wrap">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lead" id="lead"></p>
+    <div class="btns">
+      <a class="btn primary" id="callBtn" href="#"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25c1.1.37 2.3.57 3.6.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1z"/></svg>Call <span class="ph"></span></a>
+      <a class="btn ghost" href="#quote" id="quoteBtn"></a>
+    </div>
+    <div class="open"><span class="dot" id="dot"></span><span id="openText"></span></div>
   </div>
-  <div class="fig" aria-hidden="true">
-    <svg viewBox="0 0 800 300" preserveAspectRatio="xMidYMax meet">
-      <defs>
-        <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--car)"/><stop offset="1" stop-color="var(--car2)"/></linearGradient>
-        <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(255,255,255,.10)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
-        <path id="carPath" d="M110 200 L132 152 Q150 140 200 134 L295 100 Q330 86 385 86 L515 86 Q560 86 592 112 L645 138 Q705 144 724 162 Q738 176 738 200 Z"/>
-        <clipPath id="carClip"><use href="#carPath"/></clipPath>
-      </defs>
-      <rect x="0" y="276" width="800" height="24" fill="url(#floor)"/>
-      <line x1="0" y1="276" x2="800" y2="276" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
-      <ellipse cx="424" cy="278" rx="330" ry="10" fill="rgba(0,0,0,.35)"/>
-      <g class="lift">
-        <path d="M230 274 L400 240 M400 274 L230 240 M450 274 L620 240 M620 274 L450 240" stroke="#7d848d" stroke-width="7"/>
-        <rect x="190" y="234" width="470" height="12" rx="3" fill="#a2a9b1"/>
-        <rect x="200" y="270" width="450" height="8" rx="3" fill="#5f666e"/>
-      </g>
-      <g id="car">
-        <use href="#carPath" fill="url(#body)"/>
-        <g clip-path="url(#carClip)">
-          <rect x="100" y="184" width="660" height="20" fill="rgba(0,0,0,.18)"/>
-          <g class="shine"><polygon points="300,80 360,80 250,210 190,210" fill="rgba(255,255,255,.18)"/><polygon points="390,80 410,80 300,210 280,210" fill="rgba(255,255,255,.12)"/></g>
-        </g>
-        <path d="M318 104 L382 96 L452 96 L452 134 L300 134 Z" fill="#8fd3e6" opacity=".55"/>
-        <path d="M466 96 L516 96 Q548 96 574 118 L586 134 L466 134 Z" fill="#8fd3e6" opacity=".55"/>
-        <path d="M296 100 Q330 86 385 86 L515 86 Q560 86 592 112" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="3"/>
-        <rect x="700" y="160" width="26" height="10" rx="4" fill="#ffe7a3"/>
-        <rect x="114" y="170" width="20" height="10" rx="4" fill="#ff4d4d"/>
-        <g fill="#15171a"><circle cx="225" cy="200" r="42"/><circle cx="615" cy="200" r="42"/></g>
-        <g fill="#b7bdc4"><circle cx="225" cy="200" r="18"/><circle cx="615" cy="200" r="18"/></g>
-      </g>
-      <g class="shine" fill="#fff">
-        <path class="spark" d="M330 60 l6 16 16 6 -16 6 -6 16 -6 -16 -16 -6 16 -6z"/>
-        <path class="spark" d="M560 70 l4 11 11 4 -11 4 -4 11 -4 -11 -11 -4 11 -4z"/>
-        <path class="spark" d="M690 120 l5 13 13 5 -13 5 -5 13 -5 -13 -13 -5 13 -5z"/>
-        <path class="spark" d="M170 120 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z"/>
-      </g>
-    </svg>
-  </div>
-</div></section>
+</section>
+
+<div class="facts"><div class="wrap" id="facts"></div></div>
 
 <section class="band" id="services"><div class="wrap">
+  <div class="eyebrow">Services</div>
   <h2 id="svcTitle"></h2>
-  <p style="margin:0;color:var(--soft)" id="svcLead"></p>
+  <p class="sub" id="svcLead"></p>
   <div class="grid" id="svcGrid"></div>
   <p class="note">Sample services and starting prices, swapped for the shop's real ones.</p>
 </div></section>
 
-<section class="band why"><div class="wrap">
-  <h2 id="whyTitle"></h2>
-  <ul id="whyList"></ul>
+<section class="band work" id="work"><div class="wrap">
+  <div class="eyebrow" id="workEyebrow"></div>
+  <h2 id="workTitle"></h2>
+  <div class="shots" id="shots"></div>
+  <p class="note">Sample photos. On your site these are your own shop, your own work.</p>
 </div></section>
 
-<section class="band" id="quote"><div class="wrap quote">
+<section class="band why"><div class="wrap">
+  <div class="pic"><img id="whyImg" src="" alt="" loading="lazy"></div>
   <div>
+    <div class="eyebrow">Why us</div>
+    <h2 id="whyTitle"></h2>
+    <ul id="whyList"></ul>
+  </div>
+</div></section>
+
+<section class="band qband" id="quote"><div class="wrap quote">
+  <div>
+    <div class="eyebrow">Free quote</div>
     <h2 id="qTitle"></h2>
-    <p style="color:var(--soft)" id="qLead"></p>
+    <p class="sub" style="margin-bottom:14px" id="qLead"></p>
     <p style="margin:0">Rather talk? Call <a id="qPhone" href="#"></a>.</p>
   </div>
   <form id="form" novalidate>
@@ -201,7 +228,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
   </form>
 </div></section>
 
-<section class="band" id="visit" style="padding-top:0"><div class="wrap info">
+<section class="band" id="visit"><div class="wrap info">
   <div>
     <h3>Hours</h3>
     <table id="hours"></table>
@@ -209,11 +236,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
   <div>
     <h3>Service area</h3>
     <div class="chips" id="area"></div>
-    <p style="color:var(--soft);margin-top:14px" id="addr"></p>
+    <p style="color:var(--soft);margin-top:14px;font-size:15px" id="addr"></p>
   </div>
   <div>
     <h3>Reviews</h3>
-    <div class="reviews"><b>Your real Google reviews show here.</b><br>Pulled from the shop's Google profile, so customers see what past customers actually said.</div>
+    <div class="reviews"><span class="stars" aria-hidden="true">★★★★★</span><b>Your real Google reviews show here.</b><br>Pulled from the shop's Google profile, so customers see what past customers actually said.</div>
   </div>
 </div></section>
 
@@ -223,14 +250,16 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 </div></footer>
 
 <div class="callbar">
-  <a class="btn primary" id="barCall" href="#">Call now</a>
+  <a class="btn primary" id="barCall" href="#"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25c1.1.37 2.3.57 3.6.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1z"/></svg><span id="barCallT">Call now</span></a>
   <a class="btn ghost" href="#quote">Get a quote</a>
 </div>
 
 <script>
 {
 const SITES={
-  repair:{name:'Hilltop Auto Repair',mark:'M8 22h16M11 22V12l5-4 5 4v10',kicker:'Independent auto repair in Waldorf, MD',
+  repair:{name:'Hilltop Auto Repair',mark:'M8 22h16M11 22V12l5-4 5 4v10',kicker:'Auto repair · Waldorf, MD',pos:'30% 30%',wpos:'70% 50%',
+    facts:[['Same day','for most repairs'],['Quote first','before any work starts'],['12 months','parts and labor warranty']],
+    workEyebrow:'Inside the shop',workTitle:'Careful work, clean bays',shots:[['Engine diagnostics','A technician leaning into an engine bay'],['Belts and timing','Close view of engine belts and pulleys'],['Ready for pickup','Front corner of a finished car in the shop']],heroAlt:'A mechanic working under the hood of a car in the shop',whyAlt:'A bright, clean repair shop with cars on lifts',
     title:'Honest repairs, done right the first time',
     lead:'Brakes, diagnostics, suspension and routine maintenance for domestic, Japanese and European cars. You get a clear quote before any work starts.',
     phone:'(301) 555-0142',tel:'+13015550142',cta:'Get a repair quote',
@@ -243,7 +272,9 @@ const SITES={
     svcOpts:['Brakes','Check engine light','Oil and maintenance','Suspension and steering','A/C and heating','Performance and mods','Something else'],
     hours:[['Monday','7:30 am – 6:00 pm',[7.5,18]],['Tuesday','7:30 am – 6:00 pm',[7.5,18]],['Wednesday','7:30 am – 6:00 pm',[7.5,18]],['Thursday','7:30 am – 6:00 pm',[7.5,18]],['Friday','7:30 am – 6:00 pm',[7.5,18]],['Saturday','8:00 am – 2:00 pm',[8,14]],['Sunday','Closed',null]],
     area:['Waldorf','La Plata','White Plains','Indian Head','Bryans Road','St. Charles'],addr:'Shop address and map go here.'},
-  detail:{name:'Riverside Shine Detailing',mark:'M16 7l2.5 6.5L25 16l-6.5 2.5L16 25l-2.5-6.5L7 16l6.5-2.5z',kicker:'Mobile and in-shop detailing in Southern Maryland',
+  detail:{name:'Riverside Shine Detailing',mark:'M16 7l2.5 6.5L25 16l-6.5 2.5L16 25l-2.5-6.5L7 16l6.5-2.5z',kicker:'Mobile detailing · Southern Maryland',pos:'45% 30%',wpos:'50% 78%',
+    facts:[['We come to you','home or work'],['Photos','before and after, every job'],['Reminders','a text the day before']],
+    workEyebrow:'Recent work',workTitle:'The finish speaks for itself',shots:[['Paint correction','Machine polishing the hood of a car'],['Interior detail','A spotless leather car interior'],['Final wipe-down','A microfiber towel on glossy red paint']],heroAlt:'A detailer machine-polishing a glossy black car',whyAlt:'A freshly detailed black car on a polished floor',
     title:'Showroom shine, at your driveway',
     lead:'Hand washes, deep interior cleans, paint correction and ceramic coatings. We come to you, or you can drop off at the shop.',
     phone:'(240) 555-0187',tel:'+12405550187',cta:'Book a detail',
@@ -266,13 +297,20 @@ function render(key){
   $('b-repair').setAttribute('aria-pressed',key==='repair');
   $('b-detail').setAttribute('aria-pressed',key==='detail');
   $('shopName').textContent=s.name;$('logoMark').setAttribute('d',s.mark);
+  const I='img/'+key+'-';$('heroM').src=I+'hero-m.jpg';$('heroM').alt=s.heroAlt;$('heroD').srcset=I+'hero-d.jpg';
+  document.querySelector('.hero').style.setProperty('--pos',s.pos);
+  $('facts').innerHTML=s.facts.map(([b,t])=>`<div><b>${b}</b><span>${t}</span></div>`).join('');
+  $('workEyebrow').textContent=s.workEyebrow;$('workTitle').textContent=s.workTitle;
+  $('shots').innerHTML=s.shots.map(([c,a],i)=>`<figure class="shot"><img src="${I}g${i+1}.jpg" alt="${a}" loading="lazy"><figcaption>${c}</figcaption></figure>`).join('');
+  $('whyImg').src=I+'why.jpg';$('whyImg').alt=s.whyAlt;$('whyImg').style.setProperty('--wpos',s.wpos);
+  $('navCall').href='tel:'+s.tel;$('navCall').textContent=s.phone;
   $('kicker').textContent=s.kicker;$('title').textContent=s.title;$('lead').textContent=s.lead;
   $('callBtn').href='tel:'+s.tel;$('callBtn').querySelector('.ph').textContent=s.phone;
-  $('barCall').href='tel:'+s.tel;$('barCall').textContent='Call '+s.phone;
+  $('barCall').href='tel:'+s.tel;$('barCallT').textContent='Call '+s.phone;
   $('quoteBtn').textContent=s.cta;
   $('qPhone').href='tel:'+s.tel;$('qPhone').textContent=s.phone;
   $('svcTitle').textContent=s.svcTitle;$('svcLead').textContent=s.svcLead;
-  $('svcGrid').innerHTML=s.services.map(([n,d,p])=>`<div class="svc"><h3>${n}</h3><p>${d}</p><span class="from">${p==='quote'?'Custom quote':p}</span></div>`).join('');
+  $('svcGrid').innerHTML=s.services.map(([n,d,p])=>`<div class="svc"><h3>${n}</h3><span class="from">${p==='quote'?'Custom quote':p}</span><p>${d}</p></div>`).join('');
   $('whyTitle').textContent=s.whyTitle;
   $('whyList').innerHTML=s.why.map(([b,t])=>`<li><b>${b}</b><span>${t}</span></li>`).join('');
   $('qTitle').textContent=s.qTitle;$('qLead').textContent=s.qLead;
