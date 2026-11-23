@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Driftmark Shop Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a confident local shop sign — plain-spoken, trustworthy, phone-first.
+   IDEA: the shop's own storefront: a full-bleed sign band, a car in the bay, a clear way to call.
+   PICTURE: one large side-view car — up on a lift for repair, glossed with shine for detailing.
+   COLOUR and TYPE: repair = graphite + signal red; detailing = deep teal + coral; Archivo signage over Inter.
+   LAYOUT: demo switch bar, sign band with car, services, quote form, hours and area, sticky call bar on phones. */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#121417);--ink:light-dark(#15171a,#eef0f2);--soft:light-dark(#5b626b,#a9b0b8);--line:light-dark(#dfe3e8,#2a2f35);--card:light-dark(#ffffff,#181b1f)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip;padding-bottom:76px}
+body[data-site=repair]{--deep:#1d2025;--brand:#d0281f;--brand-ink:#fff;--wash:light-dark(#f0f2f5,#1a1d21);--car:#c9ced5;--car2:#9aa1aa}
+body[data-site=detail]{--deep:#0c4f5c;--brand:#ff6b4f;--brand-ink:#1b0d08;--wash:light-dark(#e6f3f5,#10252a);--car:#1b2b30;--car2:#0b1518}
+h1,h2,h3{font-family:Archivo,Inter,sans-serif;line-height:1.05;margin:0;text-wrap:balance}
+h1{font-size:clamp(32px,6vw,52px);font-weight:800}
+h2{font-size:clamp(26px,4vw,36px);font-weight:800;margin-bottom:8px}
+h3{font-size:19px;font-weight:700}
+a{color:inherit}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.demo{background:light-dark(#fffbe6,#2a2610);border-bottom:1px solid light-dark(#efe2a6,#4a4320);padding:8px max(5vw,16px);font-size:14px}
+.demo .wrap{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
+.switch{display:flex;background:light-dark(#fff,#1b1b14);border:1px solid light-dark(#e3d79e,#4a4320);border-radius:999px;padding:3px}
+.switch button{font:600 14px Inter,sans-serif;border:0;background:none;color:var(--ink);padding:0 16px;min-height:40px;border-radius:999px;cursor:pointer}
+.switch button[aria-pressed=true]{background:#15171a;color:#fff}
+:root[data-theme=dark] .switch button[aria-pressed=true]{background:#eef0f2;color:#15171a}
+header{background:var(--deep);color:#fff;padding:14px max(5vw,16px);position:sticky;top:0;z-index:5}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{font:800 20px Archivo,sans-serif;display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo svg{width:30px;height:30px}
+nav{display:flex;gap:18px;flex-wrap:wrap;font-size:15px}
+nav a{text-decoration:none;opacity:.85}nav a:hover{opacity:1;text-decoration:underline}
+.hero{background:var(--deep);color:#fff;padding-bottom:0}
+.hero .kicker{font-weight:600;color:light-dark(#ffd6cf,#ffd6cf);opacity:.9;margin-bottom:12px}
+body[data-site=detail] .hero .kicker{color:#bdeaf0}
+.hero p.lead{font-size:17px;max-width:62ch;opacity:.9;margin:16px 0 22px}
+.btns{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:10px;font:700 16px Archivo,sans-serif;text-decoration:none;border:2px solid transparent;cursor:pointer}
+.btn.primary{background:var(--brand);color:var(--brand-ink)}
+.btn.ghost{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
+.btn:focus-visible,.switch button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,nav a:focus-visible{outline:3px solid #ffbf3c;outline-offset:2px}
+.open{display:inline-flex;align-items:center;gap:8px;font-size:14px;opacity:.9}
+.dot{width:9px;height:9px;border-radius:50%;background:#3fd17a}
+.dot.closed{background:#ff6b6b}
+.fig{position:relative;margin-top:28px;aspect-ratio:8/3;max-height:420px;width:100%}
+.fig svg{position:absolute;inset:0;width:100%;height:100%}
+.lift,.shine{display:none}
+body[data-site=repair] .lift{display:inline}
+body[data-site=detail] .shine{display:inline}
+.spark{animation:tw 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.spark:nth-child(2){animation-delay:.6s}.spark:nth-child(3){animation-delay:1.2s}.spark:nth-child(4){animation-delay:1.8s}
+@keyframes tw{0%,100%{opacity:.25;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.spark{animation:none}}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px;margin-top:24px}
+.svc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.svc p{margin:0;color:var(--soft);font-size:15px}
+.svc .from{margin-top:auto;font-weight:600;white-space:nowrap}
+.note{font-size:13px;color:var(--soft);margin-top:12px}
+.why{background:var(--wash)}
+.why ul{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px}
+.why li{border-top:3px solid var(--brand);padding-top:12px}
+.why li b{display:block;font-family:Archivo,sans-serif;font-size:18px;margin-bottom:4px}
+.why li span{color:var(--soft)}
+.quote{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(20px,4vw,56px);align-items:start}
+form{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(18px,3vw,28px);display:grid;gap:14px}
+label{font-weight:600;font-size:14px;display:grid;gap:6px}
+input,select,textarea{font:16px Inter,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;min-height:48px;width:100%}
+textarea{min-height:96px;resize:vertical}
+.row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.err{color:#c0281f;font-size:14px;min-height:1em;margin:0}
+:root[data-theme=dark] .err{color:#ff8a80}
+.done{display:none;text-align:center;padding:28px 8px}
+.done h3{margin-bottom:8px}
+.done p{color:var(--soft);margin:0 0 16px}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:24px}
+table{width:100%;border-collapse:collapse}
+td{padding:10px 0;border-bottom:1px solid var(--line)}
+td:last-child{text-align:right;white-space:nowrap}
+tr.today td{font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chips span{background:var(--wash);border-radius:999px;padding:6px 14px;font-size:15px}
+.reviews{border:2px dashed var(--line);border-radius:14px;padding:20px;color:var(--soft)}
+.reviews b{color:var(--ink)}
+footer{background:var(--deep);color:#fff;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;opacity:.85}
+.callbar{position:fixed;left:0;right:0;bottom:0;display:none;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line);z-index:6}
+.callbar .btn{flex:1}
+.callbar .btn.ghost{border-color:var(--line);color:var(--ink)}
+@media(max-width:700px){nav{display:none}.callbar{display:flex}.quote{grid-template-columns:minmax(0,1fr)}.row2{grid-template-columns:minmax(0,1fr)}.fig{aspect-ratio:8/3.4}}
+@media(min-width:701px){body{padding-bottom:0}}
+</style>
+</head>
+<body data-site="repair">
+
+<div class="demo"><div class="wrap">
+  <span><b>Demo site by Driftmark.</b> Your shop's name, photos and details go here.</span>
+  <div class="switch" role="group" aria-label="Demo version">
+    <button type="button" id="b-repair" aria-pressed="true">Auto repair</button>
+    <button type="button" id="b-detail" aria-pressed="false">Detailing</button>
+  </div>
+</div></div>
+
+<header><div class="wrap">
+  <a class="logo" href="#top" id="logo"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--brand)"/><path id="logoMark" d="M9 21l7-11 7 11z" fill="#fff"/></svg><span id="shopName"></span></a>
+  <nav aria-label="Sections"><a href="#services">Services</a><a href="#quote">Get a quote</a><a href="#visit">Hours &amp; area</a></nav>
+</div></header>
+
+<section class="band hero" id="top"><div class="wrap">
+  <div class="kicker" id="kicker"></div>
+  <h1 id="title"></h1>
+  <p class="lead" id="lead"></p>
+  <div class="btns">
+    <a class="btn primary" id="callBtn" href="#">Call <span class="ph"></span></a>
+    <a class="btn ghost" href="#quote" id="quoteBtn"></a>
+    <span class="open"><span class="dot" id="dot"></span><span id="openText"></span></span>
+  </div>
+  <div class="fig" aria-hidden="true">
+    <svg viewBox="0 0 800 300" preserveAspectRatio="xMidYMax meet">
+      <defs>
+        <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--car)"/><stop offset="1" stop-color="var(--car2)"/></linearGradient>
+        <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(255,255,255,.10)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+        <path id="carPath" d="M110 200 L132 152 Q150 140 200 134 L295 100 Q330 86 385 86 L515 86 Q560 86 592 112 L645 138 Q705 144 724 162 Q738 176 738 200 Z"/>
+        <clipPath id="carClip"><use href="#carPath"/></clipPath>
+      </defs>
+      <rect x="0" y="276" width="800" height="24" fill="url(#floor)"/>
+      <line x1="0" y1="276" x2="800" y2="276" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+      <ellipse cx="424" cy="278" rx="330" ry="10" fill="rgba(0,0,0,.35)"/>
+      <g class="lift">
+        <path d="M230 274 L400 240 M400 274 L230 240 M450 274 L620 240 M620 274 L450 240" stroke="#7d848d" stroke-width="7"/>
+        <rect x="190" y="234" width="470" height="12" rx="3" fill="#a2a9b1"/>
+        <rect x="200" y="270" width="450" height="8" rx="3" fill="#5f666e"/>
+      </g>
+      <g id="car">
+        <use href="#carPath" fill="url(#body)"/>
+        <g clip-path="url(#carClip)">
+          <rect x="100" y="184" width="660" height="20" fill="rgba(0,0,0,.18)"/>
+          <g class="shine"><polygon points="300,80 360,80 250,210 190,210" fill="rgba(255,255,255,.18)"/><polygon points="390,80 410,80 300,210 280,210" fill="rgba(255,255,255,.12)"/></g>
+        </g>
+        <path d="M318 104 L382 96 L452 96 L452 134 L300 134 Z" fill="#8fd3e6" opacity=".55"/>
+        <path d="M466 96 L516 96 Q548 96 574 118 L586 134 L466 134 Z" fill="#8fd3e6" opacity=".55"/>
+        <path d="M296 100 Q330 86 385 86 L515 86 Q560 86 592 112" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="3"/>
+        <rect x="700" y="160" width="26" height="10" rx="4" fill="#ffe7a3"/>
+        <rect x="114" y="170" width="20" height="10" rx="4" fill="#ff4d4d"/>
+        <g fill="#15171a"><circle cx="225" cy="200" r="42"/><circle cx="615" cy="200" r="42"/></g>
+        <g fill="#b7bdc4"><circle cx="225" cy="200" r="18"/><circle cx="615" cy="200" r="18"/></g>
+      </g>
+      <g class="shine" fill="#fff">
+        <path class="spark" d="M330 60 l6 16 16 6 -16 6 -6 16 -6 -16 -16 -6 16 -6z"/>
+        <path class="spark" d="M560 70 l4 11 11 4 -11 4 -4 11 -4 -11 -11 -4 11 -4z"/>
+        <path class="spark" d="M690 120 l5 13 13 5 -13 5 -5 13 -5 -13 -13 -5 13 -5z"/>
+        <path class="spark" d="M170 120 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z"/>
+      </g>
+    </svg>
+  </div>
+</div></section>
+
+<section class="band" id="services"><div class="wrap">
+  <h2 id="svcTitle"></h2>
+  <p style="margin:0;color:var(--soft)" id="svcLead"></p>
+  <div class="grid" id="svcGrid"></div>
+  <p class="note">Sample services and starting prices, swapped for the shop's real ones.</p>
+</div></section>
+
+<section class="band why"><div class="wrap">
+  <h2 id="whyTitle"></h2>
+  <ul id="whyList"></ul>
+</div></section>
+
+<section class="band" id="quote"><div class="wrap quote">
+  <div>
+    <h2 id="qTitle"></h2>
+    <p style="color:var(--soft)" id="qLead"></p>
+    <p style="margin:0">Rather talk? Call <a id="qPhone" href="#"></a>.</p>
+  </div>
+  <form id="form" novalidate>
+    <div id="fields">
+      <div class="row2">
+        <label>Your name<input id="f-name" autocomplete="name" required></label>
+        <label>Phone<input id="f-phone" type="tel" autocomplete="tel" required></label>
+      </div>
+      <label style="margin-top:14px"><span id="vehLabel">Vehicle</span><input id="f-veh" placeholder="2016 Honda Civic"></label>
+      <label style="margin-top:14px">What do you need?<select id="f-svc"></select></label>
+      <label style="margin-top:14px">Details<textarea id="f-msg" placeholder=""></textarea></label>
+      <p class="err" id="err" role="alert"></p>
+      <button class="btn primary" type="submit" style="width:100%">Send my request</button>
+    </div>
+    <div class="done" id="done">
+      <h3>Request ready</h3>
+      <p>On the live site this goes straight to the shop's phone and email. This is a demo, so nothing was sent.</p>
+      <button class="btn primary" type="button" id="again">Start over</button>
+    </div>
+  </form>
+</div></section>
+
+<section class="band" id="visit" style="padding-top:0"><div class="wrap info">
+  <div>
+    <h3>Hours</h3>
+    <table id="hours"></table>
+  </div>
+  <div>
+    <h3>Service area</h3>
+    <div class="chips" id="area"></div>
+    <p style="color:var(--soft);margin-top:14px" id="addr"></p>
+  </div>
+  <div>
+    <h3>Reviews</h3>
+    <div class="reviews"><b>Your real Google reviews show here.</b><br>Pulled from the shop's Google profile, so customers see what past customers actually said.</div>
+  </div>
+</div></section>
+
+<footer class="band" style="padding-block:24px"><div class="wrap">
+  <span id="foot"></span>
+  <span>Website and Google profile by Driftmark</span>
+</div></footer>
+
+<div class="callbar">
+  <a class="btn primary" id="barCall" href="#">Call now</a>
+  <a class="btn ghost" href="#quote">Get a quote</a>
+</div>
+
+<script>
+{
+const SITES={
+  repair:{name:'Hilltop Auto Repair',mark:'M8 22h16M11 22V12l5-4 5 4v10',kicker:'Independent auto repair in Waldorf, MD',
+    title:'Honest repairs, done right the first time',
+    lead:'Brakes, diagnostics, suspension and routine maintenance for domestic, Japanese and European cars. You get a clear quote before any work starts.',
+    phone:'(301) 555-0142',tel:'+13015550142',cta:'Get a repair quote',
+    svcTitle:'What we fix',svcLead:'Most jobs are done same day or next day.',
+    services:[['Brakes','Pads, rotors, calipers and fluid. Free brake check with any visit.','from $149'],['Check engine light','Scan, diagnose and explain what the code means before we fix anything.','from $89'],['Oil and maintenance','Synthetic oil changes, filters, fluids and factory service schedules.','from $59'],['Suspension and steering','Struts, shocks, control arms, tie rods and alignment.','from $199'],['A/C and heating','Leak checks, recharge, compressors and blower motors.','from $129'],['Performance and mods','Intakes, exhausts and lowering springs installed and torqued to spec.','quote']],
+    whyTitle:'Why drivers come back',
+    why:[['Quote first, always','No work starts until you approve the price.'],['Photos of the problem','We text you pictures of worn parts so you can see it yourself.'],['12-month parts and labor warranty','Sample policy, set by the shop.']],
+    qTitle:'Get a repair quote',qLead:'Tell us what the car is doing. We reply with a price range and the soonest opening, usually the same day.',
+    vehLabel:'Vehicle (year, make, model)',vehPh:'2016 Honda Civic',msgPh:'Grinding noise when braking, started last week.',
+    svcOpts:['Brakes','Check engine light','Oil and maintenance','Suspension and steering','A/C and heating','Performance and mods','Something else'],
+    hours:[['Monday','7:30 am – 6:00 pm',[7.5,18]],['Tuesday','7:30 am – 6:00 pm',[7.5,18]],['Wednesday','7:30 am – 6:00 pm',[7.5,18]],['Thursday','7:30 am – 6:00 pm',[7.5,18]],['Friday','7:30 am – 6:00 pm',[7.5,18]],['Saturday','8:00 am – 2:00 pm',[8,14]],['Sunday','Closed',null]],
+    area:['Waldorf','La Plata','White Plains','Indian Head','Bryans Road','St. Charles'],addr:'Shop address and map go here.'},
+  detail:{name:'Riverside Shine Detailing',mark:'M16 7l2.5 6.5L25 16l-6.5 2.5L16 25l-2.5-6.5L7 16l6.5-2.5z',kicker:'Mobile and in-shop detailing in Southern Maryland',
+    title:'Showroom shine, at your driveway',
+    lead:'Hand washes, deep interior cleans, paint correction and ceramic coatings. We come to you, or you can drop off at the shop.',
+    phone:'(240) 555-0187',tel:'+12405550187',cta:'Book a detail',
+    svcTitle:'Packages',svcLead:'Prices depend on vehicle size and condition. Every quote is confirmed before we start.',
+    services:[['Express wash','Hand wash, wheels, tires, windows and a quick wipe-down inside.','from $59'],['Full interior','Vacuum, shampoo, steam, leather care and odor treatment.','from $149'],['Full detail','Interior and exterior, clay bar and a sealant that lasts months.','from $249'],['Paint correction','Machine polish to remove swirls and light scratches.','from $399'],['Ceramic coating','Long-lasting gloss and protection, applied after correction.','quote'],['Fleet and dealer','Regular service for work trucks, fleets and lots.','quote']],
+    whyTitle:'Why people book again',
+    why:[['We come to you','Home or work. We bring water and power if needed.'],['Before and after photos','Every job is photographed so you can see the difference.'],['Booking reminders','A text the day before and a reminder when your next detail is due.']],
+    qTitle:'Book a detail',qLead:'Tell us the vehicle and what you want done. We reply with a price and open times, usually within a few hours.',
+    vehLabel:'Vehicle (year, make, model)',vehPh:'2021 Ford F-150',msgPh:'Dog hair in the back seat, want it ready by Friday.',
+    svcOpts:['Express wash','Full interior','Full detail','Paint correction','Ceramic coating','Fleet and dealer','Not sure yet'],
+    hours:[['Monday','8:00 am – 6:00 pm',[8,18]],['Tuesday','8:00 am – 6:00 pm',[8,18]],['Wednesday','8:00 am – 6:00 pm',[8,18]],['Thursday','8:00 am – 6:00 pm',[8,18]],['Friday','8:00 am – 6:00 pm',[8,18]],['Saturday','8:00 am – 4:00 pm',[8,16]],['Sunday','By appointment',null]],
+    area:['Indian Head','Bryans Road','Waldorf','La Plata','Accokeek','Port Tobacco'],addr:'Mobile service area. Shop drop-off address goes here.'}
+};
+const $=id=>document.getElementById(id);
+const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+let cur='repair';
+function render(key){
+  const s=SITES[key];cur=key;
+  document.body.dataset.site=key;
+  $('b-repair').setAttribute('aria-pressed',key==='repair');
+  $('b-detail').setAttribute('aria-pressed',key==='detail');
+  $('shopName').textContent=s.name;$('logoMark').setAttribute('d',s.mark);
+  $('kicker').textContent=s.kicker;$('title').textContent=s.title;$('lead').textContent=s.lead;
+  $('callBtn').href='tel:'+s.tel;$('callBtn').querySelector('.ph').textContent=s.phone;
+  $('barCall').href='tel:'+s.tel;$('barCall').textContent='Call '+s.phone;
+  $('quoteBtn').textContent=s.cta;
+  $('qPhone').href='tel:'+s.tel;$('qPhone').textContent=s.phone;
+  $('svcTitle').textContent=s.svcTitle;$('svcLead').textContent=s.svcLead;
+  $('svcGrid').innerHTML=s.services.map(([n,d,p])=>`<div class="svc"><h3>${n}</h3><p>${d}</p><span class="from">${p==='quote'?'Custom quote':p}</span></div>`).join('');
+  $('whyTitle').textContent=s.whyTitle;
+  $('whyList').innerHTML=s.why.map(([b,t])=>`<li><b>${b}</b><span>${t}</span></li>`).join('');
+  $('qTitle').textContent=s.qTitle;$('qLead').textContent=s.qLead;
+  $('vehLabel').textContent=s.vehLabel;$('f-veh').placeholder=s.vehPh;$('f-msg').placeholder=s.msgPh;
+  $('f-svc').innerHTML=s.svcOpts.map(o=>`<option>${o}</option>`).join('');
+  const now=new Date(),today=days[now.getDay()],h=now.getHours()+now.getMinutes()/60;
+  $('hours').innerHTML=s.hours.map(([d,t])=>`<tr class="${d===today?'today':''}"><td>${d}${d===today?' (today)':''}</td><td>${t}</td></tr>`).join('');
+  const row=s.hours.find(r=>r[0]===today),span=row&&row[2],open=span&&h>=span[0]&&h<span[1];
+  $('dot').className='dot'+(open?'':' closed');
+  $('openText').textContent=open?'Open now, until '+row[1].split('– ')[1]:(span?'Closed now. Hours today: '+row[1]:'Closed today');
+  $('area').innerHTML=s.area.map(a=>`<span>${a}</span>`).join('');
+  $('addr').textContent=s.addr;
+  $('foot').textContent='© '+now.getFullYear()+' '+s.name+' · Sample business for demonstration';
+  document.title=s.name+' · Driftmark demo';
+  resetForm();
+}
+function resetForm(){$('fields').style.display='';$('done').style.display='none';$('err').textContent=''}
+function pick(key){render(key);try{history.replaceState(null,'','#'+(key==='detail'?'detailing':'repair'))}catch(e){location.hash=key==='detail'?'detailing':'repair'}}
+$('b-repair').addEventListener('click',()=>pick('repair'));
+$('b-detail').addEventListener('click',()=>pick('detail'));
+$('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=$('f-name').value.trim(),phone=$('f-phone').value.replace(/\D/g,'');
+  if(!name){$('err').textContent='Please add your name.';$('f-name').focus();return}
+  if(phone.length<10){$('err').textContent='Please add a phone number with area code.';$('f-phone').focus();return}
+  $('fields').style.display='none';$('done').style.display='block';
+});
+$('again').addEventListener('click',()=>{$('form').reset();resetForm();$('f-name').focus()});
+function fromHash(){render(location.hash==='#detailing'?'detail':'repair')}
+window.addEventListener('hashchange',()=>{if(location.hash==='#detailing'||location.hash==='#repair')fromHash()});
+fromHash();
+}
+</script>
+</body>
+</html>
